@@ -1,0 +1,1521 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>One Little Question 💖</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,70,150,.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(120,70,255,.35),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #120019,
+            #35002f,
+            #13001c
+        );
+}
+
+/* ==============================
+   BACKGROUND
+============================== */
+
+.glow {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: .3;
+    pointer-events: none;
+}
+
+.glow.one {
+    background: #ff3c9d;
+    left: -100px;
+    top: -100px;
+}
+
+.glow.two {
+    background: #743cff;
+    right: -100px;
+    bottom: -100px;
+}
+
+
+/* ==============================
+   HEARTS
+============================== */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    animation: floatHeart linear forwards;
+    opacity: 0;
+}
+
+@keyframes floatHeart {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .8;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+/* ==============================
+   MAIN
+============================== */
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.card {
+    width: min(680px, 94vw);
+
+    min-height: 520px;
+
+    padding: 45px 35px;
+
+    border-radius: 35px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.2);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.5),
+        inset 0 1px 1px
+        rgba(255,255,255,.15);
+
+    text-align: center;
+
+    position: relative;
+}
+
+.content {
+    position: relative;
+    z-index: 5;
+}
+
+
+/* ==============================
+   HEART ICON
+============================== */
+
+.big-heart {
+    font-size: 72px;
+    margin-bottom: 20px;
+
+    animation:
+        heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* ==============================
+   TEXT
+============================== */
+
+h1 {
+    font-size:
+        clamp(30px,6vw,50px);
+
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    max-width: 540px;
+
+    margin:
+        0 auto 25px;
+
+    color: #ffd9ed;
+
+    line-height: 1.7;
+
+    font-size: 17px;
+}
+
+.main-question {
+    font-size: 25px;
+
+    margin:
+        20px 0 30px;
+}
+
+
+/* ==============================
+   BUTTONS
+============================== */
+
+.buttons {
+    min-height: 75px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+button {
+    border: none;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    padding:
+        15px 32px;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    touch-action: manipulation;
+}
+
+.yes {
+    background:
+        linear-gradient(
+            135deg,
+            #ff4b9b,
+            #ff176f
+        );
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,23,111,.45);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.yes:hover {
+    transform:
+        translateY(-4px)
+        scale(1.05);
+
+    box-shadow:
+        0 15px 45px
+        rgba(255,23,111,.65);
+}
+
+
+/* ==============================
+   NO BUTTON
+============================== */
+
+.no {
+    background:
+        rgba(255,255,255,.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    position: relative;
+
+    z-index: 50;
+
+    transition:
+        left .18s ease,
+        top .18s ease,
+        transform .18s ease;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+}
+
+
+/* ==============================
+   QUESTIONS
+============================== */
+
+#questionsScreen {
+    display: none;
+}
+
+.question {
+    display: none;
+
+    animation:
+        questionIn .45s ease;
+}
+
+.question.active {
+    display: block;
+}
+
+@keyframes questionIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+}
+
+.question h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+
+/* ==============================
+   PROGRESS
+============================== */
+
+.progress {
+    height: 8px;
+
+    width: 100%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border-radius: 50px;
+
+    margin:
+        5px 0 30px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff4c9b,
+            #a45cff
+        );
+
+    border-radius: 50px;
+
+    transition:
+        width .4s ease;
+}
+
+
+/* ==============================
+   OPTIONS
+============================== */
+
+.options {
+    display: grid;
+    gap: 13px;
+}
+
+.option {
+    width: 100%;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.17);
+
+    border-radius: 18px;
+
+    padding: 16px;
+
+    color: white;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.option:hover {
+    background:
+        rgba(255,75,155,.25);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ==============================
+   FINAL
+============================== */
+
+#resultScreen {
+    display: none;
+
+    animation:
+        questionIn .7s ease;
+}
+
+.result-text {
+    color: #ffe2ef;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+.restart {
+    margin-top: 25px;
+}
+
+
+/* ==============================
+   TOAST
+============================== */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform:
+        translate(-50%,100px);
+
+    background:
+        rgba(0,0,0,.75);
+
+    padding:
+        13px 23px;
+
+    border-radius: 50px;
+
+    opacity: 0;
+
+    transition:
+        .35s ease;
+
+    z-index: 1000;
+
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* ==============================
+   CONFETTI
+============================== */
+
+.confetti {
+    position: fixed;
+
+    top: -30px;
+
+    width: 9px;
+    height: 14px;
+
+    z-index: 999;
+
+    animation:
+        fall 3s linear forwards;
+}
+
+@keyframes fall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width: 600px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .wrapper {
+        padding: 12px;
+    }
+
+    .card {
+        width: 100%;
+
+        min-height: 0;
+
+        padding:
+            30px 18px;
+
+        border-radius: 28px;
+    }
+
+    .big-heart {
+        font-size: 58px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .main-question {
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .buttons {
+        gap: 12px;
+    }
+
+    button {
+        font-size: 15px;
+        padding:
+            14px 23px;
+    }
+
+    .question h2 {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .option {
+        padding: 15px 10px;
+    }
+
+    .toast {
+        bottom: 15px;
+        font-size: 13px;
+        max-width: 90%;
+        text-align: center;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="hearts" id="hearts"></div>
+
+
+<div class="wrapper">
+
+<div class="card">
+
+<div class="content">
+
+
+<!-- ==================================
+     FIRST SCREEN
+================================== -->
+
+<section id="startScreen">
+
+<div class="big-heart">
+💗
+</div>
+
+<h1>
+Hey... 👀
+</h1>
+
+<p class="subtitle">
+I have a little question to ask you.
+<br>
+Think carefully before answering... 😌
+</p>
+
+<div class="main-question">
+Would you like to go on a date with me? 🌹
+</div>
+
+
+<div class="buttons">
+
+<button
+class="yes"
+id="yesButton"
+onclick="startQuestions()">
+
+Yes 💖
+
+</button>
+
+
+<button
+class="no"
+id="noButton">
+
+No 🙈
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================
+     QUESTIONS
+================================== -->
+
+<section id="questionsScreen">
+
+<div class="big-heart">
+🥰
+</div>
+
+
+<div class="progress">
+
+<div
+class="progress-bar"
+id="progressBar">
+</div>
+
+</div>
+
+
+<div id="questionsContainer">
+
+
+<!-- QUESTION 1 -->
+
+<div class="question active">
+
+<h2>
+What's your idea of a perfect date? 🌸
+</h2>
+
+<div class="options">
+
+<button
+class="option"
+onclick="answer()">
+
+🌳 A peaceful walk
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🎬 Movie together
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🍕 Dinner together
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🏞️ Adventure
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- QUESTION 2 -->
+
+<div class="question">
+
+<h2>
+Pick one for our evening ✨
+</h2>
+
+<div class="options">
+
+<button
+class="option"
+onclick="answer()">
+
+🌅 Watch the sunset
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🌌 Stargazing
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+☕ Cute cafe
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🚗 Long drive
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- QUESTION 3 -->
+
+<div class="question">
+
+<h2>
+What kind of date vibe? 💕
+</h2>
+
+<div class="options">
+
+<button
+class="option"
+onclick="answer()">
+
+💕 Romantic
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+😂 Lots of laughing
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+😌 Chill & relaxed
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🔥 Adventure
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- QUESTION 4 -->
+
+<div class="question">
+
+<h2>
+One last question... 👀
+</h2>
+
+<div class="options">
+
+<button
+class="option"
+onclick="answer()">
+
+💖 Definitely!
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+🥰 Sounds amazing!
+
+</button>
+
+<button
+class="option"
+onclick="answer()">
+
+😄 Let's see!
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================
+     FINAL SCREEN
+================================== -->
+
+<section id="resultScreen">
+
+<div class="big-heart">
+💖
+</div>
+
+<h1>
+It's a Date! 🎉
+</h1>
+
+<p class="result-text">
+
+You made it through all the questions. 🥰
+
+<br><br>
+
+Now we just need to decide
+<strong>when and where.</strong> 🌹
+
+<br><br>
+
+I can't wait! 💕✨
+
+</p>
+
+
+<button
+class="yes restart"
+onclick="restart()">
+
+Start Again 🔄
+
+</button>
+
+</section>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="toast"
+id="toast">
+</div>
+
+
+
+<script>
+
+/* ==========================================
+   FLOATING HEARTS
+========================================== */
+
+const hearts =
+document.getElementById("hearts");
+
+const heartList = [
+    "💗",
+    "💕",
+    "💖",
+    "💘",
+    "💝",
+    "💞",
+    "✨",
+    "🌸"
+];
+
+
+function createHeart() {
+
+    const heart =
+    document.createElement("div");
+
+    heart.className =
+    "heart";
+
+    heart.textContent =
+    heartList[
+        Math.floor(
+            Math.random() *
+            heartList.length
+        )
+    ];
+
+    heart.style.left =
+    Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+    (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+    (5 + Math.random() * 6) + "s";
+
+    hearts.appendChild(heart);
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 12000);
+}
+
+
+setInterval(
+    createHeart,
+    500
+);
+
+
+for(let i = 0; i < 15; i++) {
+    createHeart();
+}
+
+
+
+/* ==========================================
+   NO BUTTON
+========================================== */
+
+const noButton =
+document.getElementById("noButton");
+
+let noMoves = 0;
+
+
+/*
+   Find a safe random position.
+*/
+
+function moveNoButton() {
+
+    noMoves++;
+
+    /*
+       Make it fixed so it can
+       move around the entire screen.
+    */
+
+    noButton.style.position =
+        "fixed";
+
+
+    const buttonWidth =
+        noButton.offsetWidth;
+
+    const buttonHeight =
+        noButton.offsetHeight;
+
+
+    const padding = 20;
+
+
+    const maxX =
+        window.innerWidth -
+        buttonWidth -
+        padding;
+
+
+    const maxY =
+        window.innerHeight -
+        buttonHeight -
+        padding;
+
+
+    const x =
+        Math.max(
+            padding,
+            Math.random() * maxX
+        );
+
+
+    const y =
+        Math.max(
+            padding,
+            Math.random() * maxY
+        );
+
+
+    noButton.style.left =
+        x + "px";
+
+
+    noButton.style.top =
+        y + "px";
+
+
+    noButton.style.transform =
+        "scale(1.08)";
+
+
+    setTimeout(() => {
+
+        noButton.style.transform =
+            "scale(1)";
+
+    }, 150);
+
+
+    const messages = [
+
+        "Nice try! 😏",
+
+        "Too slow! 😂",
+
+        "Catch me! 🏃",
+
+        "Nope! 🙈",
+
+        "Almost! 😜",
+
+        "Try again! 💕",
+
+        "You can't catch me! 😂",
+
+        "I'm too fast! ⚡"
+
+    ];
+
+
+    showToast(
+        messages[
+            noMoves %
+            messages.length
+        ]
+    );
+}
+
+
+/*
+   DESKTOP
+
+   When the mouse gets close,
+   move the button BEFORE it
+   can easily be clicked.
+*/
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        if(
+            noButton.style.display ===
+            "none"
+        ) {
+            return;
+        }
+
+
+        const rect =
+            noButton.getBoundingClientRect();
+
+
+        const centerX =
+            rect.left +
+            rect.width / 2;
+
+
+        const centerY =
+            rect.top +
+            rect.height / 2;
+
+
+        const distance =
+            Math.sqrt(
+
+                Math.pow(
+                    event.clientX -
+                    centerX,
+                    2
+                )
+
+                +
+
+                Math.pow(
+                    event.clientY -
+                    centerY,
+                    2
+                )
+
+            );
+
+
+        /*
+           100px = escape distance.
+        */
+
+        if(distance < 100) {
+
+            moveNoButton();
+
+        }
+
+    }
+);
+
+
+
+/*
+   MOBILE
+
+   Touching the No button
+   makes it jump away.
+*/
+
+noButton.addEventListener(
+    "touchstart",
+    function(event) {
+
+        event.preventDefault();
+
+        moveNoButton();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/*
+   Also protect against click.
+*/
+
+noButton.addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+        moveNoButton();
+
+    }
+);
+
+
+
+/* ==========================================
+   START QUESTIONS
+========================================== */
+
+let currentQuestion = 0;
+
+const questions =
+document.querySelectorAll(".question");
+
+
+function startQuestions() {
+
+    document.getElementById(
+        "startScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "questionsScreen"
+    ).style.display =
+        "block";
+
+
+    /*
+       Hide No after Yes.
+    */
+
+    noButton.style.display =
+        "none";
+
+
+    updateProgress();
+
+
+    showToast(
+        "Yay! 💖 Let's continue..."
+    );
+
+}
+
+
+
+/* ==========================================
+   ANSWER
+========================================== */
+
+function answer() {
+
+    questions[
+        currentQuestion
+    ].classList.remove(
+        "active"
+    );
+
+
+    currentQuestion++;
+
+
+    if(
+        currentQuestion >=
+        questions.length
+    ) {
+
+        showResult();
+
+        return;
+    }
+
+
+    questions[
+        currentQuestion
+    ].classList.add(
+        "active"
+    );
+
+
+    updateProgress();
+
+}
+
+
+
+/* ==========================================
+   PROGRESS
+========================================== */
+
+function updateProgress() {
+
+    const percentage =
+        (currentQuestion /
+        questions.length) *
+        100;
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+
+/* ==========================================
+   FINAL
+========================================== */
+
+function showResult() {
+
+    document.getElementById(
+        "questionsScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display =
+        "block";
+
+
+    createConfetti();
+
+
+    showToast(
+        "You made it! 💕"
+    );
+
+}
+
+
+
+/* ==========================================
+   CONFETTI
+========================================== */
+
+function createConfetti() {
+
+    for(
+        let i = 0;
+        i < 120;
+        i++
+    ) {
+
+        const piece =
+        document.createElement("div");
+
+        piece.className =
+        "confetti";
+
+
+        piece.style.left =
+        Math.random() * 100 + "vw";
+
+
+        piece.style.background =
+        `hsl(
+            ${Math.random() * 360},
+            90%,
+            65%
+        )`;
+
+
+        piece.style.animationDuration =
+        (2 + Math.random() * 3) + "s";
+
+
+        piece.style.animationDelay =
+        Math.random() * 1.5 + "s";
+
+
+        document.body.appendChild(piece);
+
+
+        setTimeout(() => {
+
+            piece.remove();
+
+        }, 5500);
+
+    }
+
+}
+
+
+
+/* ==========================================
+   TOAST
+========================================== */
+
+function showToast(message) {
+
+    const toast =
+    document.getElementById("toast");
+
+
+    toast.textContent =
+    message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 1800);
+
+}
+
+
+
+/* ==========================================
+   RESTART
+========================================== */
+
+function restart() {
+
+    currentQuestion = 0;
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "questionsScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "startScreen"
+    ).style.display =
+        "block";
+
+
+    questions.forEach(
+        q => {
+
+            q.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    questions[0].classList.add(
+        "active"
+    );
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        "0%";
+
+
+    /*
+       Reset No button.
+    */
+
+    noButton.style.display =
+        "inline-block";
+
+
+    noButton.style.position =
+        "relative";
+
+
+    noButton.style.left =
+        "";
+
+
+    noButton.style.top =
+        "";
+
+
+    noButton.style.transform =
+        "";
+
+
+    noMoves = 0;
+
+}
+
+</script>
+
+</body>
+</html>
+```
